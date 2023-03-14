@@ -21,10 +21,14 @@ import AssignmentGridPage from "./ahmed/assignment-grid/AssignmentGridPage";
 import ReceiptPage from "./ahmed/payment/ReceiptPage";
 import ManagePhases from "./components/Phase";
 import StoreContext from "./context/Store";
-import ChartComponent from './mary/AdminDashboard/ChartComponent';
-import CardComponent from './mary/AdminDashboard/CardComponent';
-import LargeCardComponent from './mary/AdminDashboard/LargeCardComponent';
+import ChartComponent from "./mary/AdminDashboard/ChartComponent";
+import CardComponent from "./mary/AdminDashboard/CardComponent";
+import LargeCardComponent from "./mary/AdminDashboard/LargeCardComponent";
 
+// ====
+import LiveClasses from './ubasi/liveClasses/AllClasses'
+import ClassDetails from "./ubasi/liveClasses/ClassDetails";
+import ClassesLayout from './ubasi/liveClasses'
 
 function App() {
   const [userData, setUserData] = useState({});
@@ -33,11 +37,19 @@ function App() {
     <>
       <StoreContext>
         <Routes>
+
+
           <Route path="/" element={<LoginPage />} />
           <Route path="/largecards" element={<LargeCardComponent />} />
-        <Route path="/smallcards" element={<CardComponent />} />
-        <Route path="/chart" element={<ChartComponent />} />
-       
+          <Route path="/smallcards" element={<CardComponent />} />
+          <Route path="/chart" element={<ChartComponent />} />
+
+          <Route path="/live-classes"  element={<ClassesLayout/>} >
+            <Route index element={<LiveClasses />}/>
+            <Route path=":classId" element={<ClassDetails/>}/>
+          </Route>
+
+
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/attendance" element={<AttendancePage />} />
           <Route path="/notification" element={<NotificationPage />} />

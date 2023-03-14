@@ -62,7 +62,7 @@ class Topbar extends React.Component {
 
     return (
       <div>
-        <nav className="navbar navbar-expand navbar-light  topbar mb-4 static-top  ">
+        <nav className="navbar navbar-expand navbar-light topbar static-top">
           <button
             id="sidebarToggleTop"
             onClick={sideBarClick}

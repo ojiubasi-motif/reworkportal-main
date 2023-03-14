@@ -15,7 +15,7 @@ import StoreContext from '../../context/Store';
 function EntryViewPage() {
   return (
     <div id="wrapper" className="page-wrapper">
-    <Nav />
+    <Nav/>
     <div id="content-wrapper" className="d-flex flex-column">
       <div id="content">
         <Topbar pageName="Dashboard" />

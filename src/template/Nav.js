@@ -6,7 +6,9 @@ import {
   CreditCard,
   UserCheck,
   Bell,
-  Settings
+  Settings,
+  Bookmark,
+  Youtube,
 } from "react-feather";
 import React, { useEffect, useState } from "react";
 
@@ -23,7 +25,7 @@ class Nav extends React.Component {
         "https://reworkacademy.co/app/v2/students/" +
           localStorage.getItem("userId")
       )
-      .then((res) => { 
+      .then((res) => {
         this.setState({ userData: res.data });
         if (res.data.course) {
           this.setState({ courseData: res.data.course });
@@ -34,7 +36,7 @@ class Nav extends React.Component {
     this.state = {
       userData: {},
       courseData: {},
-      duration: ""
+      duration: "",
     };
   }
   render(props) {
@@ -74,74 +76,84 @@ class Nav extends React.Component {
     let navs = [
       {
         id: 1,
-        name: "Dashboard",
-        icon: <Home size={18} />,
+        name: "Assessments",
+        icon: <Bookmark size={18} />,
         link: "/dashboard",
         has_sub: false,
-        sub_link:null,
-        notice: 0
+        sub_link: null,
+        notice: 0,
       },
       {
         id: 2,
-        name: "Modules",
-        icon: <Book size={18} />,
-        link: "/modules",
+        name: "Live Classes",
+        icon: <Youtube size={18} />,
+        link: "/live-classes",
         has_sub: false,
-        sub_link:"/module-details-",
-        notice: 0
+        sub_link: "/module-details-",
+        notice: 0,
       },
       {
         id: 3,
-        name: "Assignments",
-        icon: <Briefcase size={18} />,
-        link: "/assignments",
-        sub_link:"/assignment-details-",
-        has_sub: false,
-        notice: 0
-      },
-      {
-        id: 4,
         name: "Projects",
         icon: <Briefcase size={18} />,
-        link: "/projects",
+        link: "/modules",
         has_sub: false,
-        sub_link:"/project-details-",
-        notice: 0
+        sub_link: "/module-details-",
+        notice: 0,
       },
-     
-      {
-        id: 5,
-        name: "Payments",
-        icon: <Book size={18} />,
-        link: "/payment",
-        sub_link:"/receipt-",
-        has_sub: false,
-        notice: 0
-      },
-      {
-        id: 6,
-        name: "Attendance",
-        icon: <UserCheck size={18} />,
-        link: "/attendance",
-        has_sub: false,
-        sub_link:null,
-        notice: 0
-      },
-      {
-        id: 7,
-        name: "Notification",
-        icon: <Bell size={18} />,
-        link: "/notification",
-        has_sub: false,sub_link:null,
-        notice: 0
-      },
-      {
-        id: 8,
-        name: "Settings",
-        icon: <Settings size={18} />,
-        link: "/Settings",
-        has_sub: true
-      }
+      // {
+      //   id: 3,
+      //   name: "Assignments",
+      //   icon: <Briefcase size={18} />,
+      //   link: "/assignments",
+      //   sub_link: "/assignment-details-",
+      //   has_sub: false,
+      //   notice: 0,
+      // },
+      // {
+      //   id: 4,
+      //   name: "Projects",
+      //   icon: <Briefcase size={18} />,
+      //   link: "/projects",
+      //   has_sub: false,
+      //   sub_link: "/project-details-",
+      //   notice: 0,
+      // },
+
+      // {
+      //   id: 5,
+      //   name: "Payments",
+      //   icon: <Book size={18} />,
+      //   link: "/payment",
+      //   sub_link: "/receipt-",
+      //   has_sub: false,
+      //   notice: 0,
+      // },
+      // {
+      //   id: 6,
+      //   name: "Attendance",
+      //   icon: <UserCheck size={18} />,
+      //   link: "/attendance",
+      //   has_sub: false,
+      //   sub_link: null,
+      //   notice: 0,
+      // },
+      // {
+      //   id: 7,
+      //   name: "Notification",
+      //   icon: <Bell size={18} />,
+      //   link: "/notification",
+      //   has_sub: false,
+      //   sub_link: null,
+      //   notice: 0,
+      // },
+      // {
+      //   id: 8,
+      //   name: "Settings",
+      //   icon: <Settings size={18} />,
+      //   link: "/Settings",
+      //   has_sub: true,
+      // },
     ];
 
     return (
@@ -183,30 +195,34 @@ class Nav extends React.Component {
             <h6 className="email-text">{this.state.userData.phone}</h6>
 
             <div className="d-flex">
-              <div className="col">
-                <h3 className="">
-                  {this.state.duration != ""
-                    ? this.state.duration.replace("months", "")
-                    : ""}
-                </h3>
-                <small>Months</small>
-              </div>
-              <div className="col">
-                <div className="vertical-divider"></div>
-              </div>
-              <div className="col">
-                <h3 className="">{this.state.courseData.lectures}</h3>
-                <small>Modules</small>
-              </div>
+              {props?.entry? (
+                <>
+                  <div className="col">
+                    <h3 className="">
+                      {this.state.duration != ""
+                        ? this.state.duration.replace("months", "")
+                        : ""}
+                    </h3>
+                    <small>Months</small>
+                  </div>
+                  <div className="col">
+                    <div className="vertical-divider"></div>
+                  </div>
+                  <div className="col">
+                    <h3 className="">{this.state.courseData.lectures}</h3>
+                    <small>Modules</small>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </Link>
 
         {navs.map((e) => {
-          if(window.location.pathname == "/entryview"){
-            return (<div>
-
-            </div>)
+          if (window.location.pathname == "/entryview") {
+            return <div></div>;
           }
           if (e.name == "Settings") {
             return (
@@ -253,7 +269,12 @@ class Nav extends React.Component {
 
           return (
             <li
-              className={`nav-item ${window.location.pathname == e.link || window.location.pathname.includes(e.sub_link) ? "active" : ""}`}
+              className={`nav-item ${
+                window.location.pathname == e.link ||
+                window.location.pathname.includes(e.sub_link)
+                  ? "active"
+                  : ""
+              }`}
             >
               <Link className="nav-link" to={e.link}>
                 {e.icon}
